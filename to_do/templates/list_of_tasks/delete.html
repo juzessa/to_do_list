@@ -1,0 +1,8 @@
+<p>Хотите удалить задачу "{{item}}" ?</p>
+
+<a href="{% url 'list_of_tasks:index' %}">Cancel</a>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <input type="submit" name="Подтвердить">
+</form>

@@ -1,0 +1,97 @@
+<!DOCTYPE html> <!-- Используется html 5 версии -->
+<html lang="ru"> <!-- Язык сайта - русский -->
+  <head> 
+    {% load static %}
+    <meta charset="utf-8"> <!-- Кодировка сайта -->
+    <!-- Сайт готов работать с мобильными устройствами -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Подключен файл со стандартными стилями бустрап -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">  
+    <title> AllDone </title>
+    {% block css_additional %} {% endblock %}
+  </head>
+  <body>
+    <header>
+      {% load static %}
+        {% include 'includes/header.html' %}
+      </header>
+
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+      <style>
+      
+        body{
+          background-color: #638CB8;
+        }
+      
+        input{
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          box-sizing: border-box;
+        }
+      
+        input::placeholder {
+          color: #d3d3d3;
+        }
+      
+        .submit{
+          background-color: #6BA3E8;
+        }
+      
+        .center-column{
+          width:600px;
+          margin: 20px auto;
+          padding:20px;
+          background-color: #fff;
+          border-radius: 3px;
+          box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+        }
+      
+        .item-row{
+          background-color: #906abd;
+          margin: 10px;
+          padding: 20px;
+          border-radius: 3px;
+          color: #fff;
+          font-size: 16px;
+          box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+        }
+      
+        .btn-danger{
+          background-color: #ffae19;
+          border-color: #e59400;
+        }
+
+
+
+    </style>
+      <main> 
+        <div class="center-column">     
+          {% block content %}
+          <form method="POST" action="/">
+            {% csrf_token %}
+            {{form.name}}
+            <input class="btn btn-info" type="submit" name="Новая задача">
+          </form>
+          <div class="todo-list">
+          {% for task in tasks %}
+          <div class="item-row">
+            <p>
+            <a class="btn btn-sm btn-info" href="{% url 'list_of_tasks:update' task.id %}">Update </a>
+            <a class="btn btn-sm btn-danger" href="{% url 'list_of_tasks:delete' task.id %}">Delete </a>
+            {% if task.complete == True %}
+          {{task}}</p>
+          {% else %}
+          {{task}}</p>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+          {% endblock %} 
+        </div>
+        </main>
+        <footer>
+        </footer>
+    </body>
+  </html> 
